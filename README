@@ -1,0 +1,45 @@
+This is a startup app for rails project. 
+By default it has a Signup, login, logout, forgot password, remember me functionality. This functionality is done with
+the help of RESTful_authentication. 
+
+
+1) Modify database.yml
+
+2) rake db:migrate 
+	 It will create users, roles, roles_users table 	
+	 
+3) rake db:initialize	
+   It will create two roles(swa and user). Also it will create a default swa(admin@webonrails.com, gabbar786).
+   If you want to change details of swa then edit lib/tasks/data.rake before step 2.
+   
+4) Update deploy.rb
+	 Capistrano receipe template to deploy project from a git repository.
+	 	
+5) Update api key in config/initializers/hoptoad.rb
+   Exception handelling tool
+
+6) rake doc:diagrams 
+   It will generate railroad diagrams for models and controllers and save them to doc directory.
+   
+
+Following plugins are already installed with this app:
+ 1) active-matchers
+ 2) annotate_models
+ 3) validates_as_email_address
+ 4) restful authentication
+ 5) role_requirement
+ 6) rspec
+ 7) rspec-rails
+ 8) will_paginate
+ 9) Hoptoad
+
+
+Note:
+1) There is a helper method 'back_or_default' which returns referer url if there was any refer otherwise returns default path(root_path). 
+   usecase: redirect_to back_or_default
+   
+2) There is a view helper method 'selected_class' which returns 'selected' if current_page matches with any of the argument passed otherwise returns ''
+   usecase: 
+    a) hash: <%= link_to "Home", {:controller => 'home', :action => 'index'}, :class => selected_class({:controller => 'home', :action => 'index'}) %>
+    b) array: <%= link_to "Profile", profile_user_path(current_user), :class => selected_class(["profile_user_path(current_user)", "edit_profile_user_path(current_user)"]) %>
+    c) string: <%= link_to "xxx", xxx_path, :class => selected_class('xxx_path') %>
